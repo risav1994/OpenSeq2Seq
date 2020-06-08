@@ -5,8 +5,10 @@ import pandas as pd
 import os
 import unicodedata
 import tqdm
+import logging
 from sklearn.model_selection import train_test_split
 
+logging.getLogger('sox').setLevel(logging.ERROR)
 FLAGS = tf.compat.v1.app.flags.FLAGS
 tfm = Transformer()
 tfm.set_output_format(rate=16000)
