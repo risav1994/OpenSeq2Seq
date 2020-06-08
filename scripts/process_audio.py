@@ -6,7 +6,7 @@ FLAGS = tf.compat.v1.app.flags.FLAGS
 
 
 def main(_):
-    print(help(FLAGS))
+    print(FLAGS["data-dir"])
 
 
 if __name__ == '__main__':
