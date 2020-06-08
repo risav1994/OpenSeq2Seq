@@ -14,6 +14,7 @@ def main(_):
     data = []
     df_details = pd.read_csv(os.path.join(source_dir, "validated.tsv"), sep="\t", header=0)
     for i in df_details.index:
+        print(df_details)
         file_name = df_details[i]["path"]
         source_file = os.path.join(source_dir, "clips/" + file_name)
         wav_file = os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/Common-Voice-Mozilla/" + file_name.split(".mp3")[0] + ".wav")
