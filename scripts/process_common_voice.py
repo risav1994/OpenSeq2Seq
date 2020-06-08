@@ -7,6 +7,8 @@ import unicodedata
 from sklearn.model_selection import train_test_split
 
 FLAGS = tf.compat.v1.app.flags.FLAGS
+tfm = Transformer()
+tfm.set_output_format(rate=16000)
 
 
 def main(_):
@@ -24,7 +26,7 @@ def main(_):
 
         transcript = transcript.lower().strip()
         if not os.path.exists(wav_file):
-            Transformer().build(source_file, wav_file)
+            tfm.build(source_file, wav_file)
         wav_filesize = os.path.getsize(wav_file)
         data.append((os.path.abspath(wav_file), wav_filesize, transcript))
     train_data, test_data = train_test_split(data, test_size=FLAGS.test_size, random_state=FLAGS.random_state)
