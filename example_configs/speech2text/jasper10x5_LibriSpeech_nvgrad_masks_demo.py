@@ -12,7 +12,7 @@ residual_dense = True  # Enable or disable Dense Residual
 
 base_model = Speech2Text
 
-root_dir = "/home/risav/experiments/OpenSeq2Seq/"
+root_dir = "/home/risav/experiments/openSeq2Seq/"
 
 base_params = {
     "random_seed": 0,
