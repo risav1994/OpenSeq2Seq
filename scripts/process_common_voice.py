@@ -20,6 +20,7 @@ def main(_):
         source_file = os.path.join(source_dir, "clips/" + file_name)
         wav_file = os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/Common-Voice-Mozilla/" + file_name.split(".mp3")[0] + ".wav")
         transcript = df_details["sentence"][i]
+        print(pd.isnull(transcript))
         transcript = unicodedata.normalize("NFKD", transcript) \
             .encode("ascii", "ignore")   \
             .decode("ascii", "ignore")
