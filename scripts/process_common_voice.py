@@ -15,22 +15,26 @@ def main(_):
     source_dir = FLAGS.source_dir
     data = []
     df_details = pd.read_csv(os.path.join(source_dir, "validated.tsv"), sep="\t", header=0)
-    for i in df_details.index:
-        file_name = df_details["path"][i]
-        source_file = os.path.join(source_dir, "clips/" + file_name)
-        wav_file = os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/Common-Voice-Mozilla/" + file_name.split(".mp3")[0] + ".wav")
-        transcript = df_details["sentence"][i]
-        if pd.isnull(transcript):
-            continue
-        transcript = unicodedata.normalize("NFKD", transcript) \
-            .encode("ascii", "ignore")   \
-            .decode("ascii", "ignore")
+    with tqdm.tqdm(total=len(df_details.index)) as bar:
+        for i in df_details.index:
+            file_name = df_details["path"][i]
+            source_file = os.path.join(source_dir, "clips/" + file_name)
+            wav_file = os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/Common-Voice-Mozilla/" +
+                                    file_name.split(".mp3")[0] + ".wav")
+            transcript = df_details["sentence"][i]
+            if pd.isnull(transcript):
+                continue
+            transcript = unicodedata.normalize("NFKD", transcript) \
+                .encode("ascii", "ignore")   \
+                .decode("ascii", "ignore")
 
-        transcript = transcript.lower().strip()
-        if not os.path.exists(wav_file):
-            tfm.build(source_file, wav_file)
-        wav_filesize = os.path.getsize(wav_file)
-        data.append((os.path.abspath(wav_file), wav_filesize, transcript))
+            transcript = transcript.lower().strip()
+            if not os.path.exists(wav_file):
+                tfm.build(source_file, wav_file)
+            wav_filesize = os.path.getsize(wav_file)
+            data.append((os.path.abspath(wav_file), wav_filesize, transcript))
+            bar.update(1)
+
     train_data, test_data = train_test_split(data, test_size=FLAGS.test_size, random_state=FLAGS.random_state)
     df_train = pd.DataFrame(data=train_data, columns=["wav_filename", "wav_filesize", "transcript"])
     df_train.to_csv(os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/train.csv", index=False))
