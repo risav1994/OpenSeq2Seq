@@ -4,6 +4,7 @@ import tensorflow as tf
 import pandas as pd
 import os
 import unicodedata
+import tqdm
 from sklearn.model_selection import train_test_split
 
 FLAGS = tf.compat.v1.app.flags.FLAGS
