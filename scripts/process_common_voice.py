@@ -25,7 +25,7 @@ def main(_):
         for i in df_details.index:
             file_name = df_details["path"][i]
             source_file = os.path.join(source_dir, "clips/" + file_name)
-            wav_file = os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/Common-Voice-Mozilla/wav-files" +
+            wav_file = os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/Common-Voice-Mozilla/wav-files/" +
                                     file_name.split(".mp3")[0] + ".wav")
             transcript = df_details["sentence"][i]
             if pd.isnull(transcript):
