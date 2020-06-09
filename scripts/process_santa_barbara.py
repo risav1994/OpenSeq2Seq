@@ -24,7 +24,7 @@ def main(_):
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
         curr_transcript = re.sub(r'(' + "|".join(patterns) + r')+', '', curr_transcript)
-        print(curr_transcript)
+        print(curr_transcript, df[columns[-1]][i])
     print(df)
 
 
