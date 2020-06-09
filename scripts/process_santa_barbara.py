@@ -21,7 +21,7 @@ def main(_):
     columns = df.columns
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
-        curr_transcript = re.sub(r'(\.|\(H\)|\(TSK\)))+', '', curr_transcript)
+        curr_transcript = re.sub(r'(\.|\(H\)|\(TSK\))+', '', curr_transcript)
         print(curr_transcript)
     print(df)
 
