@@ -39,7 +39,7 @@ def main(_):
             try:
                 if not os.path.exists(wav_file):
                     tfm.build(source_file, wav_file)
-                    y, sr = librosa.load(wav_file, sr=None, dtype=np.float16)
+                    y, sr = librosa.load(wav_file, sr=None, dtype=np.int16)
                     yt, index = librosa.effects.trim(y, top_db=10)
                     yt = y[max(index[0] - 40000, 0): min(index[1] + 40000, len(y))]
                     librosa.output.write_wav(wav_file, yt, sr)
