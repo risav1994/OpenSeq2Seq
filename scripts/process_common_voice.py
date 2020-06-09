@@ -40,11 +40,10 @@ def main(_):
             try:
                 if not os.path.exists(wav_file):
                     tfm.build(source_file, wav_file)
-                    # y, sr = soundfile.read(wav_file, dtype=np.float32)
                     y, sr = librosa.load(wav_file, sr=None)
                     yt, index = librosa.effects.trim(y, top_db=10)
                     yt = y[max(index[0] - 40000, 0): min(index[1] + 40000, len(y))]
-                    # soundfile.write(wav_file, yt, sr)
+                    soundfile.write(wav_file, yt, sr)
                     bar.update(1)
                 wav_filesize = os.path.getsize(wav_file)
                 data.append((os.path.abspath(wav_file), wav_filesize, transcript))
