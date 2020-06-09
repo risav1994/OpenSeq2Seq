@@ -20,7 +20,7 @@ def main(_):
     df = pd.read_csv(transcripts[0], sep="\t", header=None)
     columns = df.columns
     for i in df.index:
-        text = re.sub(r'(.)+', '', df[columns[-1]][i])
+        text = re.sub(r'(\.)+', '', df[columns[-1]][i])
         print(text)
     print(df)
 
