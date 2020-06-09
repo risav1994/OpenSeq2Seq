@@ -16,7 +16,7 @@ FLAGS = tf.compat.v1.app.flags.FLAGS
 def main(_):
     source_dir = FLAGS.source_dir
     transcripts = glob(source_dir + "/transcripts/TRN/*.trn")
-    df = pd.read_csv(transcripts[0], sep="\t", headers=None)
+    df = pd.read_csv(transcripts[0], sep="\t", header=None)
     print(df)
 
 
