@@ -40,7 +40,7 @@ def main(_):
                     tfm.build(source_file, wav_file)
                     y, sr = librosa.load(wav_file)
                     yt, index = librosa.effects.trim(y, top_db=10)
-                    yt = y[max(index[0] - 64000, 0): min(index[1] + 64000, len(y))]
+                    yt = y[max(index[0] - 32000, 0): min(index[1] + 32000, len(y))]
                     librosa.output.write_wav(wav_file, yt, sr)
                     bar.update(1)
                 wav_filesize = os.path.getsize(wav_file)
