@@ -5,6 +5,7 @@ import os
 import unicodedata
 import soundfile
 import logging
+import re
 from tqdm import tqdm
 from glob import glob
 from sklearn.model_selection import train_test_split
@@ -17,6 +18,10 @@ def main(_):
     source_dir = FLAGS.source_dir
     transcripts = glob(source_dir + "/transcripts/TRN/*.trn")
     df = pd.read_csv(transcripts[0], sep="\t", header=None)
+    columns = df.columns
+    for i in df.index:
+        text = re.sub(r'(.)+', '', df[columns[-1]][i])
+        print(text)
     print(df)
 
 
