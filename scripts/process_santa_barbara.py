@@ -13,6 +13,8 @@ from sklearn.model_selection import train_test_split
 logging.basicConfig(level=logging.NOTSET)
 FLAGS = tf.compat.v1.app.flags.FLAGS
 
+patterns = [r'\.', r'\(H\)', r'\(TSK\)', r'<YWN', r'[a-zA-z\b]=[a-zA-z\b]']
+
 
 def main(_):
     source_dir = FLAGS.source_dir
@@ -21,7 +23,7 @@ def main(_):
     columns = df.columns
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
-        curr_transcript = re.sub(r'(\.|\(H\)|\(TSK\))+', '', curr_transcript)
+        curr_transcript = re.sub(r'(' + "|".join(patterns) + r')+', '', curr_transcript)
         print(curr_transcript)
     print(df)
 
