@@ -1,4 +1,5 @@
 from sox import Transformer
+import sox
 from glob import glob
 import tensorflow as tf
 import pandas as pd
@@ -8,6 +9,7 @@ import tqdm
 import logging
 from sklearn.model_selection import train_test_split
 
+logging.basicConfig(level=logging.NOTSET)
 logging.getLogger('sox').setLevel(logging.ERROR)
 FLAGS = tf.compat.v1.app.flags.FLAGS
 tfm = Transformer()
@@ -32,10 +34,13 @@ def main(_):
                 .decode("ascii", "ignore")
 
             transcript = transcript.lower().strip()
-            if not os.path.exists(wav_file):
-                tfm.build(source_file, wav_file)
-            wav_filesize = os.path.getsize(wav_file)
-            data.append((os.path.abspath(wav_file), wav_filesize, transcript))
+            try:
+                if not os.path.exists(wav_file):
+                    tfm.build(source_file, wav_file)
+                wav_filesize = os.path.getsize(wav_file)
+                data.append((os.path.abspath(wav_file), wav_filesize, transcript))
+            except sox.core.SoxError:
+                logging.info(f"Error in file: {source_file}")
             bar.update(1)
 
     train_data, test_data = train_test_split(data, test_size=FLAGS.test_size, random_state=FLAGS.random_state)
