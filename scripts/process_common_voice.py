@@ -45,9 +45,9 @@ def main(_):
 
     train_data, test_data = train_test_split(data, test_size=FLAGS.test_size, random_state=FLAGS.random_state)
     df_train = pd.DataFrame(data=train_data, columns=["wav_filename", "wav_filesize", "transcript"])
-    df_train.to_csv(os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/train.csv", index=False))
+    df_train.to_csv(os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/train.csv"), index=False)
     df_test = pd.DataFrame(data=test_data, columns=["wav_filename", "wav_filesize", "transcript"])
-    df_test.to_csv(os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/test.csv", index=False))
+    df_test.to_csv(os.path.join(os.path.dirname(__file__), "../data/common-voice-mozilla/test.csv"), index=False)
 
 
 if __name__ == '__main__':
