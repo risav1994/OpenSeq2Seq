@@ -13,7 +13,8 @@ from sklearn.model_selection import train_test_split
 logging.basicConfig(level=logging.NOTSET)
 FLAGS = tf.compat.v1.app.flags.FLAGS
 
-patterns = [r'(\.)+', r'(\(H\))+', r'(\(TSK\))+', r'(<YWN)+', r'(?<=\s)=+\b', r'\b=+', r'\[(?=((\s|\'|\w|=)+\]))', r'(?<=(\s|\'|\w))+\]']
+patterns = [r'(\.)+', r'(\(H\))+', r'(\(TSK\))+', r'(<YWN)+', r'(?<=\s)=+\b', r'\b=+',
+            r'\[(?=((\s|\'|\w|=)+\]))', r'(?<=(\s|\'|\w))+\]', r'(?<=\s)-+\b']
 
 
 def main(_):
