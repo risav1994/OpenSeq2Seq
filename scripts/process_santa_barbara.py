@@ -23,11 +23,8 @@ def main(_):
     columns = df.columns
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
-        print(r'(' + "|".join(patterns) + r')')
         curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
-        # curr_transcript = re.sub(r'(?<=\s=+\b|\b=+)')
         print(f"Regex Trans: {curr_transcript}, Orig Trans: {df[columns[-1]][i]}")
-    print(df)
 
 
 if __name__ == "__main__":
