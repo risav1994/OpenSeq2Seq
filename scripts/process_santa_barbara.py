@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.NOTSET)
 FLAGS = tf.compat.v1.app.flags.FLAGS
 
 patterns = [r'(\.)+', r'(\(H\))+', r'(\(TSK\))+', r'(<YWN)+', r'(?<=\s)=+\b', r'\b=+',
-            r'\[(?=((\s|\'|\w|=)+\]))', r'(?<=(\s|\'|\w))+\]', r'(?<=\s)-+\b']
+            r'\[(?=((\s|\'|\w|=)+\]))', r'(?<=(\s|\'|\w))+\]', r'(?<=\s)\-+\b']
 
 
 def main(_):
