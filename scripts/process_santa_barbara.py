@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 logging.basicConfig(level=logging.NOTSET)
 FLAGS = tf.compat.v1.app.flags.FLAGS
 
-patterns = [r'(\.)+', r'(\(H\))+', r'(\(TSK\))+', r'(<YWN)+', r'(?<=\s=+\b|\b=+)']
+patterns = [r'(\.)+', r'(\(H\))+', r'(\(TSK\))+', r'(<YWN)+', r'(?<=\s)=+\b', r'\b=+']
 
 
 def main(_):
@@ -23,10 +23,8 @@ def main(_):
     columns = df.columns
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
-        for pattern in patterns:
-            print(pattern, curr_transcript)
-            curr_transcript = re.sub(pattern, '', curr_transcript)
-        # curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
+        print(r'(' + "|".join(patterns) + r')')
+        curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
         # curr_transcript = re.sub(r'(?<=\s=+\b|\b=+)')
         print(f"Regex Trans: {curr_transcript}, Orig Trans: {df[columns[-1]][i]}")
     print(df)
