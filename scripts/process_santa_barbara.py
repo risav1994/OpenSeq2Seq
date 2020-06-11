@@ -22,6 +22,7 @@ def main(_):
     source_dir = FLAGS.source_dir
     transcripts = glob(source_dir + "/transcripts/TRN/*.trn")
     clip_range = range(5, 10)
+    print(transcripts[0])
     df = pd.read_csv(transcripts[0], sep="\t", header=None)
     clip_duration = choice(clip_range)
     clip_transcript = ''
