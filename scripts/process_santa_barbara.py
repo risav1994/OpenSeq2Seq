@@ -31,7 +31,7 @@ def main(_):
         curr_transcript = re.sub(r'((?<=\s)=+\b|\b=+|,|\?)', '', curr_transcript)
         curr_transcript = re.sub(r'\s+', ' ', curr_transcript)
         curr_transcript = curr_transcript.strip()
-        if curr_transcript == '':
+        if curr_transcript == '' or re.sub('[^a-zA-Z]', '', curr_transcript) == '':
             continue
         df_transcripts.loc[df_index] = [time_map, curr_transcript, df[columns[-1]][i]]
         df_index += 1
