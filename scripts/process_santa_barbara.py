@@ -23,12 +23,18 @@ def main(_):
     df = pd.read_csv(transcripts[0], sep="\t", header=None)
     df_transcripts = pd.DataFrame(columns=["time_map", "cleaned", "original"])
     columns = df.columns
+    df_index = 0
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
         time_map = df[columns[0]][i]
         curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
         curr_transcript = re.sub(r'((?<=\s)=+\b|\b=+|,|\?)', '', curr_transcript)
-        df_transcripts.loc[i] = [time_map, curr_transcript, df[columns[-1]][i]]
+        curr_transcript = re.sub(r'\s+', ' ', curr_transcript)
+        curr_transcript = curr_transcript.strip()
+        if curr_transcript == '':
+            continue
+        df_transcripts.loc[df_index] = [time_map, curr_transcript, df[columns[-1]][i]]
+        df_index += 1
     df_transcripts.to_csv(FLAGS.data_dir + "/transcripts.csv", index=False)
 
 
