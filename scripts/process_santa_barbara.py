@@ -42,7 +42,7 @@ def main(_):
         if re.sub('[^a-zA-Z]', '', curr_transcript) == '':
             curr_transcript = ''
         clip_transcript += " " + curr_transcript
-        if end - curr_start > clip_duration:
+        if end - curr_start > 0.8 * clip_duration:
             clip_transcript = re.sub(r'\s+', ' ', clip_transcript).strip()
             df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
             df_index += 1
