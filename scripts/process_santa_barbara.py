@@ -50,8 +50,8 @@ def main(_):
             clip_transcript = ''
             clip_duration = choice(clip_range)
     if clip_transcript != '':
-        clip_transcript += curr_transcript
-        df_transcripts.loc[df_index] = [curr_start, end, clip_transcript]
+        clip_transcript = re.sub(r'\s+', ' ', clip_transcript).strip()
+        df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
         clip_transcript = ''
     df_transcripts.to_csv(FLAGS.data_dir + "/transcripts.csv", index=False)
 
