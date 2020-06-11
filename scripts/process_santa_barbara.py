@@ -26,7 +26,7 @@ def main(_):
     clip_duration = choice(clip_range)
     clip_transcript = ''
     curr_start = 0
-    df_transcripts = pd.DataFrame(columns=["start", "end", "transcript"])
+    df_transcripts = pd.DataFrame(columns=["start", "end", "transcript", "selected clip_duration", "actual clip duration"])
     columns = df.columns
     df_index = 0
     for i in df.index:
@@ -41,12 +41,13 @@ def main(_):
         curr_transcript = curr_transcript.strip()
         if re.sub('[^a-zA-Z]', '', curr_transcript) == '':
             curr_transcript = ''
-        if end - curr_start > curr_clip_duration:
+        if end - curr_start > clip_duration:
             clip_transcript += curr_transcript
-            df_transcripts.loc[df_index] = [curr_start, end, clip_transcript]
+            df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
             df_index += 1
             curr_start = end
             clip_transcript = ''
+            clip_duration = choice(clip_range)
     if clip_transcript != '':
         clip_transcript += curr_transcript
         df_transcripts.loc[df_index] = [curr_start, end, clip_transcript]
