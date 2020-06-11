@@ -33,6 +33,7 @@ def main(_):
 
 if __name__ == "__main__":
     tf.compat.v1.app.flags.DEFINE_string("source_dir", "source dir", "source directory")
+    tf.compat.v1.app.flags.DEFINE_string("data_dir", "data dir", "data directory")
     tf.compat.v1.app.flags.DEFINE_float("test_size", 0.02, "test size")
     tf.compat.v1.app.flags.DEFINE_integer("random_state", 1254, "random state")
     tf.compat.v1.app.run()
