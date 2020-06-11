@@ -48,6 +48,8 @@ def main(_):
             curr_start = end
             clip_transcript = ''
             clip_duration = choice(clip_range)
+        else:
+            clip_transcript += curr_transcript
     if clip_transcript != '':
         clip_transcript += curr_transcript
         df_transcripts.loc[df_index] = [curr_start, end, clip_transcript]
