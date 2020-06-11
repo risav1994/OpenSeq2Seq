@@ -9,6 +9,7 @@ import re
 from tqdm import tqdm
 from glob import glob
 from sklearn.model_selection import train_test_split
+from random import choice
 
 logging.basicConfig(level=logging.NOTSET)
 FLAGS = tf.compat.v1.app.flags.FLAGS
@@ -20,21 +21,36 @@ patterns = [r'(\.)+', r'(\([a-zA-Z0-9 _\(\)]+\))+', r'(<YWN)+', r'(?<=\s)=+\b', 
 def main(_):
     source_dir = FLAGS.source_dir
     transcripts = glob(source_dir + "/transcripts/TRN/*.trn")
+    clip_range = range(5, 14)
     df = pd.read_csv(transcripts[0], sep="\t", header=None)
-    df_transcripts = pd.DataFrame(columns=["time_map", "cleaned", "original"])
+    clip_duration = choice(clip_range)
+    clip_transcript = ''
+    curr_start = 0
+    df_transcripts = pd.DataFrame(columns=["start", "end", "transcript"])
     columns = df.columns
     df_index = 0
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
         time_map = df[columns[0]][i]
+        start, end = time_map.split(" ")
+        start = float(start)
+        end = float(end)
         curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
         curr_transcript = re.sub(r'((?<=\s)=+\b|\b=+|,|\?|~)', '', curr_transcript)
         curr_transcript = re.sub(r'\s+', ' ', curr_transcript)
         curr_transcript = curr_transcript.strip()
-        if curr_transcript == '' or re.sub('[^a-zA-Z]', '', curr_transcript) == '':
-            continue
-        df_transcripts.loc[df_index] = [time_map, curr_transcript, df[columns[-1]][i]]
-        df_index += 1
+        if re.sub('[^a-zA-Z]', '', curr_transcript) == '':
+            curr_transcript = ''
+        if end - curr_start > curr_clip_duration:
+            clip_transcript += curr_transcript
+            df_transcripts.loc[df_index] = [curr_start, end, clip_transcript]
+            df_index += 1
+            curr_start = end
+            clip_transcript = ''
+    if clip_transcript != '':
+        clip_transcript += curr_transcript
+        df_transcripts.loc[df_index] = [curr_start, end, clip_transcript]
+        clip_transcript = ''
     df_transcripts.to_csv(FLAGS.data_dir + "/transcripts.csv", index=False)
 
 
