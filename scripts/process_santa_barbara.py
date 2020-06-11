@@ -27,6 +27,7 @@ def main(_):
         curr_transcript = df[columns[-1]][i]
         time_map = df[columns[0]][i]
         curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
+        curr_transcript = re.sub(r'((?<=\s)=+\b|\b=+|,|\?)', '', curr_transcript)
         df_transcripts.loc[i] = [time_map, curr_transcript, df[columns[-1]][i]]
     df_transcripts.to_csv(FLAGS.data_dir + "/transcripts.csv", index=False)
 
