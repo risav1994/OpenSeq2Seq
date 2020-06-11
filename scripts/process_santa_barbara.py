@@ -21,7 +21,7 @@ patterns = [r'(\.)+', r'(\([a-zA-Z0-9 _\(\)]+\))+', r'(<YWN)+', r'(?<=\s)=+\b', 
 def main(_):
     source_dir = FLAGS.source_dir
     transcripts = glob(source_dir + "/transcripts/TRN/*.trn")
-    clip_range = range(5, 14)
+    clip_range = range(5, 10)
     df = pd.read_csv(transcripts[0], sep="\t", header=None)
     clip_duration = choice(clip_range)
     clip_transcript = ''
@@ -42,7 +42,7 @@ def main(_):
         if re.sub('[^a-zA-Z]', '', curr_transcript) == '':
             curr_transcript = ''
         clip_transcript += " " + curr_transcript
-        if end - curr_start > 0.8 * clip_duration:
+        if end - curr_start > clip_duration:
             clip_transcript = re.sub(r'\s+', ' ', clip_transcript).strip()
             df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
             df_index += 1
