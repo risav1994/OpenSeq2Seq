@@ -13,19 +13,22 @@ from sklearn.model_selection import train_test_split
 logging.basicConfig(level=logging.NOTSET)
 FLAGS = tf.compat.v1.app.flags.FLAGS
 
-patterns = [r'(\.)+', r'(\([a-zA-Z0-9 ]+\))+', r'(<YWN)+', r'(?<=\s)=+\b', r'\b=+', r'\d(?=\w+)', r'(?<=\w)+\d',
-            r'\[(?=((\s|\'|\w|=|~|@|\-|\))+))', r'(?<=(\s|\'|\w|=|~|@|\-|\)))+\]', r'(?<=\s)\-+', r'<[\w@]+', r'[\w@]+>', r'@+']
+patterns = [r'(\.)+', r'(\([a-zA-Z0-9 ]+\))+', r'(<YWN)+', r'(?<=\s)=+\b', r'\b=+', r'\d(?=\w+)', r'(?<=\w)+\d', r'%(?=\w)+'
+            r'\[(?=((\s|\'|\w|=|~|@|<|\-|\))+))', r'(?<=(\s|\'|\w|=|~|@|>|\-|\)))+\]', r'(?<=\s)\-+', r'<[\w@%]+', r'[\w@%]+>', r'@+']
 
 
 def main(_):
     source_dir = FLAGS.source_dir
     transcripts = glob(source_dir + "/transcripts/TRN/*.trn")
     df = pd.read_csv(transcripts[0], sep="\t", header=None)
+    df_transcripts = pd.DataFrame(columns=["time_map", "cleaned", "original"])
     columns = df.columns
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
+        time_map = df[columns[0]][i]
         curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
-        print(f"Regex Trans: {curr_transcript}, Orig Trans: {df[columns[-1]][i]}")
+        df_transcripts.loc[i] = [time_map, curr_transcript, df[columns[-1]][i]]
+    df_transcripts.to_csv(FLAGS.data_dir + "/transcripts.csv", index=False)
 
 
 if __name__ == "__main__":
