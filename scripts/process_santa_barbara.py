@@ -59,7 +59,7 @@ def main(_):
             df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
             end_idx = int(end * len(audio_data) / audio_duration)
             curr_audio_data = audio_data[curr_start_idx: end_idx]
-            print(curr_audio_data)
+            print(curr_audio_data, end_idx, curr_start_idx)
             yt, index = librosa.effects.trim(curr_audio_data, top_db=10)
             yt = curr_audio_data[max(index[0] - 40000, 0): min(index[1] + 40000, len(curr_audio_data))]
             wav_file = FLAGS.data_dir + "/wav-files/" + file_prefix + str(file_index) + ".wav"
