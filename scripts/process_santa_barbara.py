@@ -45,6 +45,9 @@ def main(_):
                 start, end = time_map.split(" ")
                 start = float(start)
                 end = float(end)
+                if pd.isnull(curr_transcript):
+                    curr_transcript = ''
+
                 curr_transcript = re.sub(r'(' + "|".join(patterns) + r')', '', curr_transcript)
                 curr_transcript = re.sub(r'((?<=\s)=+\b|\b=+|,|\?|~)', '', curr_transcript)
                 curr_transcript = re.sub(r'\s+', ' ', curr_transcript)
