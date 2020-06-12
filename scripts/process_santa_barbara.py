@@ -22,14 +22,22 @@ def main(_):
     source_dir = FLAGS.source_dir
     transcripts = glob(source_dir + "/transcripts/TRN/*.trn")
     clip_range = range(5, 10)
-    print(transcripts[0])
-    df = pd.read_csv(transcripts[0], sep="\t", header=None)
+    data = []
+    file_prefix = "sbc-"
+    file_index = 1
+    transcript_file = transcripts[0]
+    print(transcript_file)
+    df = pd.read_csv(transcript_file, sep="\t", header=None)
     clip_duration = choice(clip_range)
     clip_transcript = ''
     curr_start = 0
+    curr_start_idx = 0
     df_transcripts = pd.DataFrame(columns=["start", "end", "transcript", "selected clip_duration", "actual clip duration"])
     columns = df.columns
     df_index = 0
+    audio_file = source_dir + "/clips/" + transcript_file.split("/")[-1].split(".trn")[0] + ".wav"
+    audio_data, sr = librosa.load(audio_file, sr=None)
+    audio_duration = librosa.get_duration(audio_data)
     for i in df.index:
         curr_transcript = df[columns[-1]][i]
         time_map = df[columns[0]][i]
@@ -45,16 +53,41 @@ def main(_):
         clip_transcript += " " + curr_transcript
         if end - curr_start > clip_duration:
             clip_transcript = re.sub(r'\s+', ' ', clip_transcript).strip()
+            clip_transcript = unicodedata.normalize("NFKD", clip_transcript) \
+                .encode("ascii", "ignore")   \
+                .decode("ascii", "ignore")
             df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
+            end_idx = int(end * len(audio_data) / audio_duration)
+            curr_audio_data = audio_data[curr_start_idx: end_idx]
+            yt, index = librosa.effects.trim(curr_audio_data, top_db=10)
+            yt = curr_audio_data[max(index[0] - 40000, 0): min(index[1] + 40000, len(curr_audio_data))]
+            wav_file = FLAGS.data_dir + "/wav-files/" + file_prefix + str(file_index) + ".wav"
+            soundfile.write(wav_file, yt, sr)
+            file_index += 1
+            wav_filesize = os.path.getsize(wav_file)
+            data.append((os.path.abspath(wav_file), wav_filesize, clip_transcript))
             df_index += 1
             curr_start = end
+            curr_start_idx = end_idx
             clip_transcript = ''
             clip_duration = choice(clip_range)
     if clip_transcript != '':
         clip_transcript = re.sub(r'\s+', ' ', clip_transcript).strip()
+        clip_transcript = unicodedata.normalize("NFKD", clip_transcript) \
+            .encode("ascii", "ignore")   \
+            .decode("ascii", "ignore")
         df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
+        curr_audio_data = audio_data[curr_start_idx:]
+        yt, index = librosa.effects.trim(curr_audio_data, top_db=10)
+        yt = curr_audio_data[max(index[0] - 40000, 0): min(index[1] + 40000, len(curr_audio_data))]
+        wav_file = FLAGS.data_dir + "/wav-files/" + file_prefix + str(file_index) + ".wav"
+        soundfile.write(wav_file, yt, sr)
+        file_index += 1
+        wav_filesize = os.path.getsize(wav_file)
+        data.append((os.path.abspath(wav_file), wav_filesize, clip_transcript))
         clip_transcript = ''
     df_transcripts.to_csv(FLAGS.data_dir + "/transcripts.csv", index=False)
+    pd.DataFrame(data=data, columns=["wav_filename", "wav_filesize", "transcript"]).to_csv(FLAGS.data_dir + "/train.csv", index=False)
 
 
 if __name__ == "__main__":
