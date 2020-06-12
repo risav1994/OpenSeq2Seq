@@ -25,7 +25,7 @@ def main(_):
     data = []
     file_prefix = "sbc-"
     file_index = 1
-    with tqdm.total(len(transcripts)) as bar:
+    with tqdm(total=len(transcripts)) as bar:
         for idx, transcript_file in enumerate(transcripts):
             print(transcript_file)
             df = pd.read_csv(transcript_file, sep="\t", header=None)
