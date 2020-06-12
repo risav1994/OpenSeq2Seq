@@ -58,7 +58,7 @@ def main(_):
                 .encode("ascii", "ignore")   \
                 .decode("ascii", "ignore")
             df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
-            end_idx = int(end * len(audio_data) / audio_duration)
+            end_idx = int(end * sr)
             curr_audio_data = audio_data[curr_start_idx: end_idx]
             print(f'Current Data: {curr_audio_data}, End Index: {end_idx}, Start Index: {curr_start_idx}, Audio Data Length: {len(audio_data)}')
             yt, index = librosa.effects.trim(curr_audio_data, top_db=10)
