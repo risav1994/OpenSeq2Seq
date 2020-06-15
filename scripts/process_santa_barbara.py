@@ -43,6 +43,7 @@ def main(_):
                 curr_transcript = line.split("\t")[-1]
                 time_map = re.split(r'(\t|\s)+', line)
                 start, end = time_map[0], time_map[2]
+                print(f'{time_map}, {line}')
                 start = float(start)
                 end = float(end)
                 if pd.isnull(curr_transcript):
