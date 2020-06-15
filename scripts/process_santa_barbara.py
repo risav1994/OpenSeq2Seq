@@ -27,8 +27,6 @@ def main(_):
     file_index = 1
     with tqdm(total=len(transcripts)) as bar:
         for idx, transcript_file in enumerate(transcripts):
-            if os.path.exists(FLAGS.data_dir + "/transcripts-" + str(idx) + ".csv"):
-                continue
             print(transcript_file)
             df = open(transcript_file, "r", encoding="utf-8")
             clip_duration = choice(clip_range)
