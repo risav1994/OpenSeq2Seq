@@ -34,7 +34,6 @@ def main(_):
             curr_start = 0
             curr_start_idx = 0
             df_transcripts = pd.DataFrame(columns=["start", "end", "transcript", "selected clip_duration", "actual clip duration"])
-            columns = df.columns
             df_index = 0
             audio_file = source_dir + "/clips/" + transcript_file.split("/")[-1].split(".trn")[0] + ".wav"
             audio_data, sr = librosa.load(audio_file, sr=None)
