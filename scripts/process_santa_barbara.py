@@ -28,6 +28,7 @@ def main(_):
     with tqdm(total=len(transcripts)) as bar:
         for idx, transcript_file in enumerate(transcripts):
             print(transcript_file)
+            df = open(transcript_file, "r")
             df = pd.read_csv(transcript_file, sep="\t", header=None)
             clip_duration = choice(clip_range)
             clip_transcript = ''
@@ -39,10 +40,11 @@ def main(_):
             audio_file = source_dir + "/clips/" + transcript_file.split("/")[-1].split(".trn")[0] + ".wav"
             audio_data, sr = librosa.load(audio_file, sr=None)
             audio_duration = librosa.get_duration(audio_data)
-            for i in df.index:
-                curr_transcript = df[columns[-1]][i]
-                time_map = df[columns[0]][i]
-                start, end = time_map.split(" ")
+            for i, line in enumerate(df):
+                line = line.replace("\n", "")
+                curr_transcript = line.split("\t")[-1]
+                time_map = re.split(r'(\t|\s)+', line)
+                start, end = time_map[0], time_map[2]
                 start = float(start)
                 end = float(end)
                 if pd.isnull(curr_transcript):
