@@ -27,6 +27,8 @@ def main(_):
     file_index = 1
     with tqdm(total=len(transcripts)) as bar:
         for idx, transcript_file in enumerate(transcripts):
+            if os.path.exists(FLAGS.data_dir + "/transcripts-" + str(idx) + ".csv"):
+                continue
             print(transcript_file)
             df = open(transcript_file, "r", encoding="utf-8")
             clip_duration = choice(clip_range)
@@ -88,16 +90,17 @@ def main(_):
                 clip_transcript = unicodedata.normalize("NFKD", clip_transcript) \
                     .encode("ascii", "ignore")   \
                     .decode("ascii", "ignore")
-                df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
                 curr_audio_data = audio_data[curr_start_idx:]
-                yt, index = librosa.effects.trim(curr_audio_data, top_db=10)
-                yt = curr_audio_data[max(index[0] - 40000, 0): min(index[1] + 40000, len(curr_audio_data))]
-                wav_file = FLAGS.data_dir + "/wav-files/" + file_prefix + str(file_index) + ".wav"
-                soundfile.write(wav_file, yt, sr)
-                file_index += 1
-                wav_filesize = os.path.getsize(wav_file)
-                data.append((os.path.abspath(wav_file), wav_filesize, clip_transcript))
-                clip_transcript = ''
+                if len(curr_audio_data) > 0:
+                    df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
+                    yt, index = librosa.effects.trim(curr_audio_data, top_db=10)
+                    yt = curr_audio_data[max(index[0] - 40000, 0): min(index[1] + 40000, len(curr_audio_data))]
+                    wav_file = FLAGS.data_dir + "/wav-files/" + file_prefix + str(file_index) + ".wav"
+                    soundfile.write(wav_file, yt, sr)
+                    file_index += 1
+                    wav_filesize = os.path.getsize(wav_file)
+                    data.append((os.path.abspath(wav_file), wav_filesize, clip_transcript))
+                    clip_transcript = ''
             df_transcripts.to_csv(FLAGS.data_dir + "/transcripts-" + str(idx) + ".csv", index=False)
             bar.update(1)
     pd.DataFrame(data=data, columns=["wav_filename", "wav_filesize", "transcript"]).to_csv(FLAGS.data_dir + "/train.csv", index=False)
