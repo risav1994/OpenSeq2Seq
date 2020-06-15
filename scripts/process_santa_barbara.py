@@ -79,7 +79,6 @@ def main(_):
                     soundfile.write(wav_file, yt, sr)
                     file_index += 1
                     wav_filesize = os.path.getsize(wav_file)
-                    clip_transcript = clip_transcript.replace()
                     data.append((os.path.abspath(wav_file), wav_filesize, clip_transcript))
                     df_index += 1
                     curr_start = end
@@ -87,10 +86,12 @@ def main(_):
                     clip_transcript = ''
                     clip_duration = choice(clip_range)
             if clip_transcript != '':
-                clip_transcript = re.sub(r'\s+', ' ', clip_transcript).strip()
+                clip_transcript = clip_transcript.replace("[", "").replace("]", "").replace(
+                    "%", "").replace("(", "").replace(")", "").replace("-", " ")
                 clip_transcript = unicodedata.normalize("NFKD", clip_transcript) \
                     .encode("ascii", "ignore")   \
                     .decode("ascii", "ignore")
+                clip_transcript = re.sub(r'\s+', ' ', clip_transcript).strip()
                 curr_audio_data = audio_data[curr_start_idx:]
                 if len(curr_audio_data) > 0:
                     df_transcripts.loc[df_index] = [curr_start, end, clip_transcript, clip_duration, end - curr_start]
