@@ -40,6 +40,8 @@ def main(_):
             audio_duration = librosa.get_duration(audio_data)
             for i, line in enumerate(df):
                 line = line.replace("\n", "")
+                if line.strip() == "":
+                    continue
                 curr_transcript = line.split("\t")[-1]
                 time_map = re.split(r'(\t|\s)+', line)
                 start, end = time_map[0], time_map[2]
