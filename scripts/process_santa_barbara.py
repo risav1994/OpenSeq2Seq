@@ -29,7 +29,6 @@ def main(_):
         for idx, transcript_file in enumerate(transcripts):
             print(transcript_file)
             df = open(transcript_file, "r")
-            df = pd.read_csv(transcript_file, sep="\t", header=None)
             clip_duration = choice(clip_range)
             clip_transcript = ''
             curr_start = 0
