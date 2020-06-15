@@ -65,7 +65,7 @@ def main(_):
                 clip_transcript += " " + curr_transcript
                 if end - curr_start > clip_duration:
                     clip_transcript = clip_transcript.replace("[", "").replace("]", "").replace(
-                        "%", "").replace("(", "").replace(")", "").replace("-", " ")
+                        "%", "").replace("(", "").replace(")", "").replace("-", " ").replace("=", "")
                     clip_transcript = unicodedata.normalize("NFKD", clip_transcript) \
                         .encode("ascii", "ignore")   \
                         .decode("ascii", "ignore")
@@ -87,7 +87,7 @@ def main(_):
                     clip_duration = choice(clip_range)
             if clip_transcript != '':
                 clip_transcript = clip_transcript.replace("[", "").replace("]", "").replace(
-                    "%", "").replace("(", "").replace(")", "").replace("-", " ")
+                    "%", "").replace("(", "").replace(")", "").replace("-", " ").replace("=", "")
                 clip_transcript = unicodedata.normalize("NFKD", clip_transcript) \
                     .encode("ascii", "ignore")   \
                     .decode("ascii", "ignore")
