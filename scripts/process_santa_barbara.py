@@ -28,7 +28,7 @@ def main(_):
     with tqdm(total=len(transcripts)) as bar:
         for idx, transcript_file in enumerate(transcripts):
             print(transcript_file)
-            df = open(transcript_file, "r")
+            df = open(transcript_file, "r", encoding="utf-8")
             clip_duration = choice(clip_range)
             clip_transcript = ''
             curr_start = 0
@@ -46,9 +46,11 @@ def main(_):
                 if start == "":
                     start = time_map[2]
                     end = time_map[4]
-                print(f'{time_map}, {line}')
-                start = float(start)
-                end = float(end)
+                try:
+                    start = float(start)
+                    end = float(end)
+                except:
+                    print(f'{time_map}, {line}')
                 if pd.isnull(curr_transcript):
                     curr_transcript = ''
 
