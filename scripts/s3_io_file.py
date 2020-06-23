@@ -18,4 +18,4 @@ class S3IOFile(object):
         pass
 
     def read(self, buf_size):
-        self.tar_obj["Body"].read(buf_size)
+        return self.tar_obj["Body"].read(buf_size)
