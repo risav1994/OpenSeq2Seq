@@ -1,5 +1,5 @@
 from boto3 import Session
-from botocode.config import Config
+from botocore.config import Config
 
 
 class S3IOFile(object):
