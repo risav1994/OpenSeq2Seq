@@ -20,4 +20,4 @@ class S3IOFile(object):
         tar_obj = self.s3_client.get_object(Bucket=self.bucket, Key=self.s3_path, Range="bytes=0-" + str(buf_size))
         print(buf_size)
         print(tar_obj)
-        return tar_obj["Body"].read()
+        return help(tar_obj["Body"].read)
