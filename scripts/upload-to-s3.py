@@ -1,6 +1,7 @@
 from requests import request
 import logging
 import tensorflow as tf
+import boto3
 logging.basicConfig(level=logging.NOTSET)
 
 FLAGS = tf.compat.v1.app.flags.FLAGS
@@ -8,7 +9,6 @@ FLAGS = tf.compat.v1.app.flags.FLAGS
 
 def main(_):
     r = request("GET", "https://lab41openaudiocorpus.s3.amazonaws.com/VOiCES_release.tar.gz", stream=True)
-    import boto3
     session = boto3.Session(aws_access_key_id=FLAGS.access_key,
                             aws_secret_access_key=FLAGS.secret_key, region_name="us-east-1")
     s3 = session.resource("s3")
