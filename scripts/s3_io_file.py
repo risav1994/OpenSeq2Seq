@@ -16,6 +16,7 @@ class S3IOFile(object):
         self.seek_position = 0
 
     def seek(self, *args, **kwargs):
+        print(args, kwargs)
         self.tar_obj = self.s3_client.get_object(Bucket=self.bucket, Key=self.s3_path)
 
     def read(self, buf_size):
