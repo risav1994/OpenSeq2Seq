@@ -140,7 +140,7 @@ class Speech2TextDataLayer(DataLayer):
         if self.params["interactive"]:
             return
         for csv in params['dataset_files']:
-            files = pd.read_csv(csv, encoding='utf-8')
+            files = pd.read_csv(csv, encoding='utf-8', keep_default_na=False)
             if self._files is None:
                 self._files = files
             else:
