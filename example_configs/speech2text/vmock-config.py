@@ -212,7 +212,6 @@ eval_params = {
         "dataset_files": [
             root_dir + "data/librispeech/librivox-dev-clean.csv",
             root_dir + "data/common-voice-mozilla/test.csv",
-            root_dir + "data/santa-barbara/test.csv"
         ],
         "shuffle": False,
     },
