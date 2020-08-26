@@ -27,7 +27,7 @@ base_params = {
     "print_loss_steps": 10,
     "print_samples_steps": 100,
     "eval_steps": 1100,
-    "save_checkpoint_steps": 11000,
+    "save_checkpoint_steps": 1100,
     "logdir": root_dir + "models/checkpoint",
     "num_checkpoints": 2,
 
@@ -197,7 +197,9 @@ train_params = {
         "dataset_files": [
             root_dir + "data/librispeech/librivox-train-clean-100.csv",
             root_dir + "data/librispeech/librivox-train-clean-360.csv",
-            root_dir + "data/librispeech/librivox-train-other-500.csv"
+            root_dir + "data/librispeech/librivox-train-other-500.csv",
+            root_dir + "data/common-voice-mozilla/train.csv",
+            root_dir + "data/santa-barbara/train.csv"
         ],
         "max_duration": 16.7,
         "shuffle": True,
@@ -209,6 +211,8 @@ eval_params = {
     "data_layer_params": {
         "dataset_files": [
             root_dir + "data/librispeech/librivox-dev-clean.csv",
+            root_dir + "data/common-voice-mozilla/test.csv",
+            root_dir + "data/santa-barbara/test.csv"
         ],
         "shuffle": False,
     },
