@@ -219,7 +219,6 @@ class Speech2TextDataLayer(DataLayer):
 
             """Builds data processing graph using ``tf.data`` API."""
             if self.params['mode'] != 'infer':
-                print(self._files)
                 self._dataset = tf.data.Dataset.from_tensor_slices(self._files)
                 if self.params['shuffle']:
                     self._dataset = self._dataset.shuffle(self._size)
