@@ -24,7 +24,7 @@ import tensorflow as tf
 # pylint: disable=no-name-in-module
 from tensorflow.python.client import device_lib
 
-logging.basicConfig(level=logging.NOTSET)
+logging.basicConfig(level=logging.INFO)
 
 
 def get_available_gpus():
