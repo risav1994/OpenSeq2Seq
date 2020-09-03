@@ -195,9 +195,9 @@ train_params = {
             'speed_perturbation_ratio': [0.9, 1., 1.1],
         },
         "dataset_files": [
-            root_dir + "librispeech/librivox-train-clean-100.csv",
-            root_dir + "librispeech/librivox-train-clean-360.csv",
-            root_dir + "librispeech/librivox-train-other-500.csv",
+            root_dir + "librivox-train-clean-100.csv",
+            root_dir + "librivox-train-clean-360.csv",
+            root_dir + "librivox-train-other-500.csv",
         ],
         "max_duration": 16.7,
         "shuffle": True,
@@ -208,7 +208,7 @@ eval_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            root_dir + "librispeech/librivox-dev-clean.csv",
+            root_dir + "librivox-dev-clean.csv",
             root_dir + "common-voice-mozilla/test.csv",
         ],
         "shuffle": False,
