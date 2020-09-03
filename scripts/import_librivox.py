@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2018 Mozilla Corporation
 
-
+from __future__ import absolute_import, division, print_function
 from tensorflow.python.platform import gfile
 import urllib
 from sox import Transformer
@@ -17,7 +17,6 @@ import tqdm
 import pandas
 import fnmatch
 import codecs
-from __future__ import absolute_import, division, print_function
 
 # Make sure we can import stuff from util/
 # This script needs to be run from the root of the DeepSpeech repository
