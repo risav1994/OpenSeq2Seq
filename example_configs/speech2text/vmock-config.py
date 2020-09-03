@@ -12,7 +12,7 @@ residual_dense = True  # Enable or disable Dense Residual
 
 base_model = Speech2Text
 
-root_dir = "/home/risav/experiments/openSeq2Seq/"
+root_dir = "/mnt/data-processing-risav-1/lost+found/LibriSpeech/"
 
 base_params = {
     "random_seed": 0,
@@ -195,11 +195,9 @@ train_params = {
             'speed_perturbation_ratio': [0.9, 1., 1.1],
         },
         "dataset_files": [
-            root_dir + "data/librispeech/librivox-train-clean-100.csv",
-            root_dir + "data/librispeech/librivox-train-clean-360.csv",
-            root_dir + "data/librispeech/librivox-train-other-500.csv",
-            root_dir + "data/common-voice-mozilla/train.csv",
-            root_dir + "data/santa-barbara/train.csv"
+            root_dir + "librispeech/librivox-train-clean-100.csv",
+            root_dir + "librispeech/librivox-train-clean-360.csv",
+            root_dir + "librispeech/librivox-train-other-500.csv",
         ],
         "max_duration": 16.7,
         "shuffle": True,
@@ -210,8 +208,8 @@ eval_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            root_dir + "data/librispeech/librivox-dev-clean.csv",
-            root_dir + "data/common-voice-mozilla/test.csv",
+            root_dir + "librispeech/librivox-dev-clean.csv",
+            root_dir + "common-voice-mozilla/test.csv",
         ],
         "shuffle": False,
     },
@@ -221,7 +219,7 @@ infer_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            "data/stt-test-data.csv",
+            "stt-test-data.csv",
         ],
         "shuffle": False,
     },
