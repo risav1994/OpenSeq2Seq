@@ -209,7 +209,6 @@ eval_params = {
     "data_layer_params": {
         "dataset_files": [
             root_dir + "librivox-dev-clean.csv",
-            root_dir + "common-voice-mozilla/test.csv",
         ],
         "shuffle": False,
     },
