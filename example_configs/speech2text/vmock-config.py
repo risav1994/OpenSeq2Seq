@@ -12,7 +12,7 @@ residual_dense = True  # Enable or disable Dense Residual
 
 base_model = Speech2Text
 
-root_dir = "/mnt/data-processing-risav-1/lost+found/LibriSpeech/"
+root_dir = "/mnt/data-processing-risav-1/lost+found/"
 
 base_params = {
     "random_seed": 0,
@@ -26,9 +26,9 @@ base_params = {
     "save_summaries_steps": 100,
     "print_loss_steps": 10,
     "print_samples_steps": 100,
-    "eval_steps": 1100,
-    "save_checkpoint_steps": 1100,
-    "logdir": root_dir + "models/checkpoint",
+    "eval_steps": 5000,
+    "save_checkpoint_steps": 11000,
+    "logdir": "models/checkpoint",
     "num_checkpoints": 2,
 
     "optimizer": NovoGrad,
@@ -173,7 +173,7 @@ base_params = {
     "data_layer_params": {
         "num_audio_features": 64,
         "input_type": "logfbank",
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab_custom.txt",
         "norm_per_feature": True,
         "window": "hanning",
         "precompute_mel_basis": True,
@@ -195,9 +195,10 @@ train_params = {
             'speed_perturbation_ratio': [0.9, 1., 1.1],
         },
         "dataset_files": [
-            root_dir + "librivox-train-clean-100.csv",
-            root_dir + "librivox-train-clean-360.csv",
-            root_dir + "librivox-train-other-500.csv",
+            root_dir + "LibriSpeech/librivox-train-clean-100.csv",
+            root_dir + "LibriSpeech/librivox-train-clean-360.csv",
+            root_dir + "LibriSpeech/librivox-train-other-500.csv",
+            root_dir + "live-speech/train.csv",
         ],
         "max_duration": 16.7,
         "shuffle": True,
@@ -208,7 +209,8 @@ eval_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            root_dir + "librivox-dev-clean.csv",
+            root_dir + "LibriSpeech/librivox-dev-clean.csv",
+            root_dir + "live-speech/test.csv",
         ],
         "shuffle": False,
     },
