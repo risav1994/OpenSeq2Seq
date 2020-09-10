@@ -198,7 +198,7 @@ train_params = {
             root_dir + "LibriSpeech/librivox-train-clean-100.csv",
             root_dir + "LibriSpeech/librivox-train-clean-360.csv",
             root_dir + "LibriSpeech/librivox-train-other-500.csv",
-            root_dir + "live-speech/train.csv",
+            root_dir + "live-speech/train-oversampled.csv",
         ],
         "max_duration": 16.7,
         "shuffle": True,
@@ -210,7 +210,7 @@ eval_params = {
     "data_layer_params": {
         "dataset_files": [
             root_dir + "LibriSpeech/librivox-dev-clean.csv",
-            root_dir + "live-speech/test.csv",
+            root_dir + "live-speech/test-oversampled.csv",
         ],
         "shuffle": False,
     },
