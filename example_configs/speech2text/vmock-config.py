@@ -195,10 +195,7 @@ train_params = {
             'speed_perturbation_ratio': [0.9, 1., 1.1],
         },
         "dataset_files": [
-            root_dir + "LibriSpeech/librivox-train-clean-100.csv",
-            root_dir + "LibriSpeech/librivox-train-clean-360.csv",
-            root_dir + "LibriSpeech/librivox-train-other-500.csv",
-            root_dir + "live-speech/train-oversampled.csv",
+            root_dir + "speech-train.csv",
         ],
         "max_duration": 16.7,
         "shuffle": True,
