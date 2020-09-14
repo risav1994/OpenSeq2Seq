@@ -164,7 +164,7 @@ base_params = {
     "decoder_params": {
         "initializer": tf.contrib.layers.xavier_initializer,
         "use_language_model": False,
-        "infer_logits_to_pickle": False,
+        "infer_logits_to_pickle": True,
     },
     "loss": CTCLoss,
     "loss_params": {},
