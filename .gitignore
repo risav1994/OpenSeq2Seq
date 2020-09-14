@@ -29,6 +29,10 @@ decoders/ThreadPool/
 decoders/build/
 decoders/openfst-1.6.3.tar.gz
 decoders/openfst-1.6.3/
+decoders/decoders_wrap.cxx
+decoders/kenlm/
+decoders/swig_decoders.py
+language_model/
 .idea
 
 # PyInstaller
