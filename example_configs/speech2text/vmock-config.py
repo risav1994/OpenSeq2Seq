@@ -217,7 +217,8 @@ infer_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            root_dir + "live-speech/test.csv",
+            # root_dir + "live-speech/test.csv",
+            f"{root_dir}LibriSpeech/librivox-dev-clean.csv",
         ],
         "shuffle": False,
     },
