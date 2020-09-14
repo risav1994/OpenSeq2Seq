@@ -217,7 +217,7 @@ infer_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            "stt-test-data.csv",
+            root_dir + "live-speech/test.csv",
         ],
         "shuffle": False,
     },
