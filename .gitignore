@@ -25,7 +25,10 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
+decoders/ThreadPool/
+decoders/build/
+decoders/openfst-1.6.3.tar.gz
+decoders/openfst-1.6.3/
 .idea
 
 # PyInstaller
