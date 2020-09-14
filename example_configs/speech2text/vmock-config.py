@@ -218,7 +218,7 @@ infer_params = {
     "data_layer_params": {
         "dataset_files": [
             # root_dir + "live-speech/test.csv",
-            f"{root_dir}LibriSpeech/librivox-dev-clean.csv",
+            f"{root_dir}LibriSpeech/librivox-test-clean.csv",
         ],
         "shuffle": False,
     },
